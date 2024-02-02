@@ -1,4 +1,55 @@
 
-body {
-  background-color : lightblue
+body,html{
+  height: 100%;
+  width: 100%;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.mainContainer {
+  height: 100%;
+  background-color: rgb(255,244,224);
+  width: 100%;
+}
+
+.contentContainer{
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 5%;
+}
+
+.pomodoroContainer{
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: auto;
+}
+
+.modeButton.active{
+  background-color: green;
+  color: white;
+}
+
+.modeButton{
+  background-color: lightgrey;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px; 
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modes{
+  justify-content: center;
+  display: flex;
+  gap: 10px;
+}
+
+.Timer{
+  font-size: 5rem;
+}
+
+#root{
+  height: 100%;
+  width: 100%;
 }

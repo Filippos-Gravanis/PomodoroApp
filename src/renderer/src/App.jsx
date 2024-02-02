@@ -1,32 +1,15 @@
-import 'bootstrap/dist/css/bootstrap.css'
 function App() {
   return (
-    <div className="dropdown">
-      <button
-        className="btn btn-secondary dropdown-toggle"
-        type="button"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
-        Dropdown button
-      </button>
-      <ul className="dropdown-menu" style="">
-        <li>
-          <a className="dropdown-item" href="#">
-            Action
-          </a>
-        </li>
-        <li>
-          <a className="dropdown-item" href="#">
-            Another action
-          </a>
-        </li>
-        <li>
-          <a className="dropdown-item" href="#">
-            Something else here
-          </a>
-        </li>
-      </ul>
+    <div className="mainContainer">
+      <div className="contentContainer">
+        <div className="pomodoroContainer">
+          <div className="modes">
+            <div className="modeButton active">Pomodoro</div>
+            <div className="modeButton">Break</div>
+          </div>
+          <div className="Timer">11:45</div>
+        </div>
+      </div>
     </div>
   )
 }
