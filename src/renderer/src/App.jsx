@@ -9,28 +9,58 @@ function App() {
       <div className="contentContainer">
         <div className="pomodoroContainer">
           <div className="modes">
-            <div className="modeButton active">Pomodoro</div>
-            <div className="modeButton">Break</div>
+            <div
+              className={'modeButton ' + (activeMode == 'pomodoro' ? 'active' : '')}
+              onClick={() => {
+                if (activeMode!='pomodoro'){
+                setActiveMode('pomodoro')
+                clearInterval(activeInterval)
+                setActiveInterval()}
+              }}
+            >
+              Pomodoro
+            </div>
+            <div
+              onClick={() => {
+                if (activeMode!='break'){
+                setActiveMode('break')
+                clearInterval(activeInterval)
+                setActiveInterval()
+                }
+              }}
+              className={'modeButton ' + (activeMode == 'break' ? 'active' : '')}
+            >
+              Break
+            </div>
           </div>
           <div className="Timer">{timeLeft}</div>
           <div>
             <button
               onClick={() => {
-                let interval = setInterval(() => {
-                  setTimeLeft((timeLeft) =>{ 
-                  if (timeLeft == 0) {
-                    clearInterval(interval)
-                    return 0
-                  }
-                  return timeLeft - 1
+                if (activeInterval) {
+                  clearInterval(activeInterval)
+                  setActiveInterval()
+                } else {
+                  let interval = setInterval(() => {
+                    setTimeLeft((timeLeft) => {
+                      if (timeLeft == 0) {
+                        clearInterval(interval)
+                        setActiveInterval()
+                        if (activeMode == 'pomodoro') {
+                          setActiveMode('break')
+                        } else {
+                          setActiveMode('pomodoro')
+                        }
+                        return 0
+                      }
+                      return timeLeft - 1
+                    })
+                  }, 1000)
+                  setActiveInterval(interval)
                 }
-                  )
-                  
-                  
-                }, 1000)
               }}
             >
-              Start
+              {activeInterval ? 'Stop' : 'Start'}
             </button>
             <button>+</button>
           </div>
