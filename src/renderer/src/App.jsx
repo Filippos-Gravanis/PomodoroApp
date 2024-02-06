@@ -1,9 +1,12 @@
 import { useState } from 'react'
-
+import { calculateNewTime , isNonZeroFound } from './calclulateTime'
+console.log(isNonZeroFound("0:00"))
 function App() {
-  let [timeLeft, setTimeLeft] = useState(5)
   let [activeMode, setActiveMode] = useState('pomodoro')
   let [activeInterval, setActiveInterval] = useState()
+  let [pomodoroDuration,setPomodoroDuration] = useState("00:05")
+  let [breakDuration,setBreakDuration] = useState("10:00")
+  let [timeLeft, setTimeLeft] = useState(pomodoroDuration)
   return (
     <div className="mainContainer">
       <div className="contentContainer">
@@ -15,7 +18,8 @@ function App() {
                 if (activeMode!='pomodoro'){
                 setActiveMode('pomodoro')
                 clearInterval(activeInterval)
-                setActiveInterval()}
+                setActiveInterval()
+                setTimeLeft(pomodoroDuration)}
               }}
             >
               Pomodoro
@@ -26,6 +30,7 @@ function App() {
                 setActiveMode('break')
                 clearInterval(activeInterval)
                 setActiveInterval()
+                setTimeLeft(breakDuration)
                 }
               }}
               className={'modeButton ' + (activeMode == 'break' ? 'active' : '')}
@@ -43,17 +48,22 @@ function App() {
                 } else {
                   let interval = setInterval(() => {
                     setTimeLeft((timeLeft) => {
-                      if (timeLeft == 0) {
+                      if (!isNonZeroFound(timeLeft)) {
+                        console.log(isNonZeroFound(timeLeft),"lel")
                         clearInterval(interval)
                         setActiveInterval()
                         if (activeMode == 'pomodoro') {
                           setActiveMode('break')
+                          console.log("lel")
+                          setTimeLeft(breakDuration)
                         } else {
                           setActiveMode('pomodoro')
+                          setTimeLeft(pomodoroDuration)
                         }
-                        return 0
                       }
-                      return timeLeft - 1
+                      console.log(timeLeft)
+
+                      return (calculateNewTime(timeLeft))
                     })
                   }, 1000)
                   setActiveInterval(interval)
